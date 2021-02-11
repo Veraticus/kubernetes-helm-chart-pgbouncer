@@ -8,13 +8,11 @@
 
 {{- $requiredMsg := printf ".Values.databases.%v needs to include .dbname" $k }}
 {{- if $root.Values.global.namespacedDatabases }}
-{{ $k }} = host={{ $v.host }} port={{ $v.port }} {{ if $v.user }}user={{ $v.user }}{{end}} {{ if $v.auth_user }}auth_user={{ $v.auth_user }}{{end}} dbname={{ $root.Release.Namespace | replace "-" "_"}}_{{ required $requiredMsg $v.dbname }}
+{{ $k }} = host={{ $v.host }} port={{ $v.port }}{{ if $v.user }} user={{ $v.user }}{{end}}{{ if $v.auth_user }} auth_user={{ $v.auth_user }}{{end}} dbname={{ $root.Release.Namespace | replace "-" "_"}}_{{ required $requiredMsg $v.dbname }}{{ range $inner_k, $inner_v := $v.additional}} {{ $inner_k }}={{ $inner_v }}{{ end }}
 {{- else }}
-{{ $k }} = host={{ $v.host }} port={{ $v.port }} {{ if $v.user }}user={{ $v.user }}{{end}} {{ if $v.auth_user }}auth_user={{ $v.auth_user }}{{end}} dbname={{ required $requiredMsg $v.dbname }}
+{{ $k }} = host={{ $v.host }} port={{ $v.port }}{{ if $v.user }} user={{ $v.user }}{{end}}{{ if $v.auth_user }} auth_user={{ $v.auth_user }}{{end}} dbname={{ required $requiredMsg $v.dbname }}{{ range $inner_k, $inner_v := $v.additional}} {{ $inner_k }}={{ $inner_v }}{{ end }}
 {{- end }}
-
 {{- end }}
-
 
 [pgbouncer]
 

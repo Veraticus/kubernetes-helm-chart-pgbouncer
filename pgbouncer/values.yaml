@@ -28,7 +28,7 @@ databases: {}
 #    user: user
 #    dbname: dbname
 #    auth_user: pgbouncer
-
+#    additional: {sslmode: prefer} # Additional params to be added to the database connection
 
 # list of users to connect to database, You can get by running this query
 # psql -Atq -U postgres -d postgres -c "SELECT concat('\"', usename, '\" \"', passwd, '\"') FROM pg_shadow"
